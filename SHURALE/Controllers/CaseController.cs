@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SHURALE.Models;
+using System.Net.Sockets;
 
 namespace SHURALE.Controllers
 {
@@ -22,7 +23,7 @@ namespace SHURALE.Controllers
             return Ok(cases);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
 
         public IActionResult GetById(int id)
         {
@@ -34,16 +35,30 @@ namespace SHURALE.Controllers
             return Ok(@case);
         }
 
-        [HttpPost]
-        public IActionResult Add(Case @case)
+        [HttpGet("by-motherboard-form-factor/{motherboardFormFactor}")]
+
+        public IActionResult GetByMotherboardFormFactor(string motherboardFormFactor)
         {
-            Context.Cases.Add(@case);
-            Context.SaveChanges();
+            Case? @case = Context.Cases.Where(x => x.MotherBoardFormFactor == motherboardFormFactor).FirstOrDefault();
+            if (@case == null)
+            {
+                return BadRequest("Not found");
+            }
             return Ok(@case);
+        }
+
+        [HttpPost]
+        public IActionResult Add(string model, string motherboardFormFactor, string powerSupplyFormFactor)
+        {
+        Case @case = new Case() { Model = model, MotherBoardFormFactor = motherboardFormFactor, PowerSupplyFormFactor = powerSupplyFormFactor };
+        Context.Cases.Add(@case);
+        Context.SaveChanges();
+        return Ok(@case);
         }
         [HttpPut]
         public IActionResult Update(int id, string model, string motherboardFormFactor, string powerSupplyFormFactor)
         {
+
             Case? @case = Context.Cases.Where(x => x.CaseId == id).FirstOrDefault();
             if (@case == null)
             {

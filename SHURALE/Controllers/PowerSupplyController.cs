@@ -22,7 +22,7 @@ namespace SHURALE.Controllers
             return Ok(powerSupplys);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
 
         public IActionResult GetById(int id)
         {
@@ -34,9 +34,22 @@ namespace SHURALE.Controllers
             return Ok(powerSupply);
         }
 
-        [HttpPost]
-        public IActionResult Add(PowerSupply powerSupply)
+        [HttpGet("by-power-rating/{powerRating}")]
+
+        public IActionResult GetByPowerRating(int powerRating)
         {
+            PowerSupply? powerSupply = Context.PowerSupplies.Where(x => x.PowerRating == powerRating).FirstOrDefault();
+            if (powerSupply == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(powerSupply);
+        }
+
+        [HttpPost]
+        public IActionResult Add(string model, int powerRating, string formFactor)
+        {
+            PowerSupply powerSupply = new PowerSupply() { Model = model, PowerRating = powerRating, FormFactor = formFactor };
             Context.PowerSupplies.Add(powerSupply);
             Context.SaveChanges();
             return Ok(powerSupply);

@@ -36,15 +36,64 @@ namespace SHURALE.Controllers
             return Ok(motherboard);
         }
 
-        [HttpPost]
-        public IActionResult Add(Motherboard motherboard)
+        [HttpGet("by-motherboard-form-factor/{motherboardFormFactor}")]
+
+        public IActionResult GetByMotherboardFormFactor(string motherboardFormFactor)
         {
+            Motherboard? motherboard = Context.Motherboards.Where(x => x.MotherboardFornFactor == motherboardFormFactor).FirstOrDefault();
+            if (motherboard == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(motherboard);
+        }
+
+        [HttpGet("by-socket{socket}")]
+
+        public IActionResult GetBySocket(string socket)
+        {
+            Motherboard? motherboard = Context.Motherboards.Where(x => x.Socket == socket).FirstOrDefault();
+            if (motherboard == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(motherboard);
+        }
+
+        [HttpGet("by-ram-memory-type{memoryType}")]
+
+        public IActionResult GetByMemoryType(string memoryType)
+        {
+            Motherboard? motherboard = Context.Motherboards.Where(x => x.Ramtype == memoryType).FirstOrDefault();
+            if (motherboard == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(motherboard);
+        }
+
+        [HttpGet("by-connection-interface/{connectionInterface}")]
+
+        public IActionResult GetByConnectionInterface(string connectionInterface)
+        {
+            Motherboard? motherboard = Context.Motherboards.Where(x => x.ConnectionInterface == connectionInterface).FirstOrDefault();
+            if (motherboard == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(motherboard);
+        }
+
+        [HttpPost]
+        public IActionResult Add(string model, string socket, string ramType, string connectionInterface, string memoryInterFace, string motherboardFormFactor)
+        {
+            Motherboard motherboard = new Motherboard() { Model = model, Socket = socket, Ramtype = ramType, ConnectionInterface = connectionInterface, MemoryInterface = memoryInterFace, MotherboardFornFactor = motherboardFormFactor};
             Context.Motherboards.Add(motherboard);
             Context.SaveChanges();
             return Ok(motherboard);
         }
         [HttpPut]
-        public IActionResult Update(int id, string model,string socket, string ramType, string connectionInterface, string memoryInterface) 
+        public IActionResult Update(int id, string model,string socket, string ramType, string connectionInterface, string memoryInterface, string formFactor) 
         {
             Motherboard? motherboard = Context.Motherboards.Where(x => x.MotherboardId == id).FirstOrDefault();
             if (motherboard == null)
@@ -56,6 +105,7 @@ namespace SHURALE.Controllers
             motherboard.Ramtype = ramType;
             motherboard.ConnectionInterface = connectionInterface;
             motherboard.MemoryInterface = memoryInterface;
+            motherboard.MotherboardFornFactor = formFactor;
             Context.SaveChanges();
             return Ok(motherboard);
         }

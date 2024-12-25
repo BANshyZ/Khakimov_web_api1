@@ -22,7 +22,7 @@ namespace SHURALE.Controllers
             return Ok(gpus);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
 
         public IActionResult GetById(int id)
         {
@@ -34,9 +34,22 @@ namespace SHURALE.Controllers
             return Ok(gpu);
         }
 
-        [HttpPost]
-        public IActionResult Add(Gpu gpu)
+        [HttpGet("by-connection-interface/{connectionInterface}")]
+
+        public IActionResult GetByConnectionInterface(string connectionInterface)
         {
+            Gpu? gpu = Context.Gpus.Where(x => x.ConnectionInterface == connectionInterface).FirstOrDefault();
+            if (gpu == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(gpu);
+        }
+
+        [HttpPost]
+        public IActionResult Add(string model, string videoMemoryType, string connectionIntrerface, int videoMemoryCapacity)
+        {
+            Gpu gpu = new Gpu() { Model = model, VideoMemoryType = videoMemoryType, ConnectionInterface = connectionIntrerface, VideoMemoryCapacity = videoMemoryType };
             Context.Gpus.Add(gpu);
             Context.SaveChanges();
             return Ok(gpu);

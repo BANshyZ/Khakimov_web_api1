@@ -22,7 +22,7 @@ namespace SHURALE.Controllers
             return Ok(coolers);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
 
         public IActionResult GetById(int id)
         {
@@ -34,9 +34,21 @@ namespace SHURALE.Controllers
             return Ok(cooler);
         }
 
-        [HttpPost]
-        public IActionResult Add(Cooler cooler)
+        [HttpGet("by-socket-support/{socketSupport}")]
+        public IActionResult GetBySocketSupport(string socketSupport)
         {
+            Cooler? cooler = Context.Coolers.Where(x => x.SocketSupport == socketSupport).FirstOrDefault();
+            if (cooler == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(cooler);
+        }
+
+        [HttpPost]
+        public IActionResult Add(string model, string socketSupport, string constructionType)
+        {
+            Cooler cooler = new Cooler() { Model = model, SocketSupport = socketSupport, ConstructionType = constructionType };
             Context.Coolers.Add(cooler);
             Context.SaveChanges();
             return Ok(cooler);

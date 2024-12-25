@@ -35,8 +35,9 @@ namespace SHURALE.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Guest guest)
+        public IActionResult Add(string username, string password, string email)
         {
+            Guest guest = new Guest() { Username = username, Password = password, Email = email };
             Context.Guests.Add(guest);
             Context.SaveChanges();
             return Ok(guest);

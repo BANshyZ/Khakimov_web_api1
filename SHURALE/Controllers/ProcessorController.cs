@@ -21,7 +21,7 @@ namespace SHURALE.Controllers
             return Ok(cpus);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
 
         public IActionResult GetById(int id)
         {
@@ -33,24 +33,38 @@ namespace SHURALE.Controllers
             return Ok(cpu);
         }
 
-        [HttpPost]
-        public IActionResult Add(Cpu cpu)
+        [HttpGet("by-socket{socket}")]
+
+        public IActionResult GetBySocket(string socket)
         {
+            Cpu? cpu = Context.Cpus.Where(x => x.Socket == socket).FirstOrDefault();
+            if (cpu == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(cpu);
+        }
+
+        [HttpPost]
+        public IActionResult Add(string model, string socket, int cores, int threads)
+        {
+            Cpu cpu = new Cpu() { Model = model, Socket = socket, Cores = cores, Threads = threads};
             Context.Cpus.Add(cpu);
             Context.SaveChanges();
             return Ok(cpu);
         }
         [HttpPut]
-        public IActionResult Update(int id, string model, int powerRating, string formFactor)
+        public IActionResult Update(int id, string model, string socket, int cores, int threads)
         {
-            Cpu? cpu = Context.Cpus.Where(x => x.PowerSupplyId == id).FirstOrDefault();
+            Cpu? cpu = Context.Cpus.Where(x => x.Cpuid == id).FirstOrDefault();
             if (cpu == null)
             {
                 return BadRequest("Not found");
             }
             cpu.Model = model;
-            cpu.PowerRating = powerRating;
-            cpu.FormFactor = formFactor;
+            cpu.Socket = socket;
+            cpu.Cores = cores; 
+            cpu.Threads = threads;
             Context.SaveChanges();
             return Ok(cpu);
         }
@@ -58,7 +72,7 @@ namespace SHURALE.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            Cpu? motherboard = Context.Cpus.Where(x => x.PowerSupplyId == id).FirstOrDefault();
+            Cpu? motherboard = Context.Cpus.Where(x => x.Cpuid == id).FirstOrDefault();
             if (motherboard == null)
             {
                 return BadRequest("Not found");

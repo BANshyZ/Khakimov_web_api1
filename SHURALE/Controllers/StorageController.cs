@@ -22,7 +22,7 @@ namespace SHURALE.Controllers
             return Ok(storages);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
 
         public IActionResult GetById(int id)
         {
@@ -34,9 +34,22 @@ namespace SHURALE.Controllers
             return Ok(storage);
         }
 
-        [HttpPost]
-        public IActionResult Add(Storage storage)
+        [HttpGet("by-memory-type/{memoryType}")]
+
+        public IActionResult GetByMemoryType(string memoryType)
         {
+            Storage? storage = Context.Storages.Where(x => x.MemoryType == memoryType).FirstOrDefault();
+            if (storage == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(storage);
+        }
+
+        [HttpPost]
+        public IActionResult Add(string model, string memoryType, int capacity, string memoryInterface)
+        {
+            Storage storage = new Storage() { Model = model, MemoryType = memoryType, Capacity = capacity, MemoryInterface = memoryInterface };
             Context.Storages.Add(storage);
             Context.SaveChanges();
             return Ok(storage);

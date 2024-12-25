@@ -22,7 +22,7 @@ namespace SHURALE.Controllers
             return Ok(rams);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("by-id/{id}")]
 
         public IActionResult GetById(int id)
         {
@@ -34,9 +34,22 @@ namespace SHURALE.Controllers
             return Ok(ram);
         }
 
-        [HttpPost]
-        public IActionResult Add(Ram ram)
+        [HttpGet("by-ram-memory-type{memoryType}")]
+
+        public IActionResult GetByMemoryType(string memoryType)
         {
+            Ram? ram = Context.Rams.Where(x => x.MemoryType == memoryType).FirstOrDefault();
+            if (ram == null)
+            {
+                return BadRequest("Not found");
+            }
+            return Ok(ram);
+        }
+
+        [HttpPost]
+        public IActionResult Add(string model, string memoryType, int capacity)
+        {
+            Ram ram = new Ram() { Model = model, MemoryType = memoryType, Capacity = capacity };
             Context.Rams.Add(ram);
             Context.SaveChanges();
             return Ok(ram);
