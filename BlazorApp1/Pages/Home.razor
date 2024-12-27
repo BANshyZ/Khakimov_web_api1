@@ -1,0 +1,21 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<p>Сегодня: @CurrentDate</p>
+<p>Сегодня: @CurrentTime</p>
+
+@code {
+    string CurrentDate;
+    string CurrentTime;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var date = DateTime.Now;
+        CurrentDate = date.ToShortDateString(); 
+        CurrentTime = date.ToShortTimeString();
+
+    }
+}

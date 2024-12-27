@@ -1,0 +1,66 @@
+﻿@page "/"
+
+
+<section id="">
+    <div class="container">
+        <p>Текущее время: @CurrentTime</p>
+        <p>Текущая дата: @CurrentDate</p>
+
+        <h1>Материнские платы</h1>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Socket</th>
+                    <th scope="col">TypeOfRam</th>
+                    <th scope="col">ConnectionInterface</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var motherboard in result)
+                {
+                    <tr>
+                        <th scope="row">@motherboard.MotherboardId</th>
+                        <td>@motherboard.Model</td>
+                        <td>@motherboard.Socket</td>
+                        <td>@motherboard.RamType</td>
+                        <td>@motherboard.ConnectionInterface</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
+@code {
+    public class Motherboard
+    {
+        public int MotherboardId { get; set; }
+        public string Model { get; set; }
+        public string Socket { get; set; }
+        public string RamType { get; set; }
+        public string ConnectionInterface { get; set; }
+    }
+
+    public Motherboard[] result = new Motherboard[] { };
+
+    string CurrentDate;
+    string CurrentTime;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var date = DateTime.Now;
+        CurrentDate = date.ToShortDateString();
+        CurrentTime = date.ToShortTimeString();
+
+        var client = new HttpClient();
+        client.BaseAddress = new Uri("https://khakimov-web-api1.onrender.com/");
+
+        result = await client.GetFromJsonAsync<Motherboard[]>("api/MotherboardController");
+
+        return;
+    }
+}
