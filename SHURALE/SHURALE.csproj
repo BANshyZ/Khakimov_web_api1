@@ -16,4 +16,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BlazorApp2\BlazorApp2.csproj" />
+  </ItemGroup>
+
 </Project>

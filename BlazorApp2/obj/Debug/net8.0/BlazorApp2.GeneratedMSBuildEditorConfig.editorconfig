@@ -26,16 +26,12 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Пользователь/source/repos/SHURALE/BlazorApp2/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Пользователь/source/repos/SHURALE/BlazorApp2/Pages/Home.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Пользователь/source/repos/SHURALE/BlazorApp2/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
+[C:/Users/Пользователь/source/repos/SHURALE/BlazorApp2/Pages/Motherboards.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW90aGVyYm9hcmRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Пользователь/source/repos/SHURALE/BlazorApp2/_Imports.razor]

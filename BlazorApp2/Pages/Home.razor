@@ -13,7 +13,7 @@
                     <a class="nav-link active" aria-current="page" href="#">Главная</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Мои проекты</a>
+                    <a class="nav-link" href="/motherboards">Материнские платы</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Контакты</a>
@@ -89,7 +89,7 @@
         <div class="row align-items-center projects">
             <div class="col">
                 <h1>Я люблю базы данных!</h1>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Autem quod aliquam corporis tempore nostrum. Animi rem quisquam deleniti qui ad ipsa quod! Animi corrupti, ex blanditiis dolor error nulla consectetur.</p>
+                <p>AAAA УЖЕ 8:17.</p>
             </div>
         </div>
     </div>
@@ -120,7 +120,7 @@
         var client = new HttpClient();
         client.BaseAddress = new Uri("https://khakimov-web-api1.onrender.com/");
 
-        result = await client.GetFromJsonAsync<Motherboard[]>("api/MotherboardController");
+        result = await client.GetFromJsonAsync<Motherboard[]>("api/Motherboard");
 
         return;
     }
