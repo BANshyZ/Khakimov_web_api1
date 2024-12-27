@@ -1,6 +1,5 @@
-
-using Microsoft.EntityFrameworkCore;
 using SHURALE.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SHURALE
 {
@@ -20,6 +19,13 @@ namespace SHURALE
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                var context = services.GetRequiredService<CompHelperContext>();
+                context.Database.Migrate();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

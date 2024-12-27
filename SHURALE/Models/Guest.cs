@@ -1,15 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
+using Swashbuckle.AspNetCore.Annotations;
 
-namespace SHURALE.Models;
-
-public partial class Guest
+namespace SHURALE.Models
 {
-    public int Id { get; set; }
+    public class Guest
+    {
+        public int Id { get; set; }
 
-    public string Username { get; set; } = null!;
+        [Required]
+        public string Username { get; set; }
 
-    public string Password { get; set; } = null!;
+        [Required]
+        public string Password { get; set; }
 
-    public string Email { get; set; } = null!;
+        [Required]
+        [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Invalid email format.")]
+        [SwaggerSchema(Description = "Email address of the guest")]
+        public string Email { get; set; }
+
+        public Guest(string username, string password, string email)
+        {
+            Username = username ?? throw new ArgumentNullException(nameof(username), "Username cannot be null.");
+            Password = password ?? throw new ArgumentNullException(nameof(password), "Password cannot be null.");
+            Email = email ?? throw new ArgumentNullException(nameof(email), "Email cannot be null.");
+        }
+    }
 }
+
+

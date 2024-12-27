@@ -49,7 +49,7 @@ namespace SHURALE.Controllers
         [HttpPost]
         public IActionResult Add(string model, string videoMemoryType, string connectionIntrerface, int videoMemoryCapacity)
         {
-            Gpu gpu = new Gpu() { Model = model, VideoMemoryType = videoMemoryType, ConnectionInterface = connectionIntrerface, VideoMemoryCapacity = videoMemoryType };
+            Gpu gpu = new Gpu() { Model = model, VideoMemoryType = videoMemoryType, ConnectionInterface = connectionIntrerface, VideoMemoryCapacity = videoMemoryCapacity };
             Context.Gpus.Add(gpu);
             Context.SaveChanges();
             return Ok(gpu);

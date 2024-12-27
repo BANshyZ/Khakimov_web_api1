@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SHURALE.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace SHURALE.Controllers
 {
@@ -35,13 +36,19 @@ namespace SHURALE.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(string username, string password, string email)
+        public IActionResult Add(string username, string password, [EmailAddress] string email)
         {
-            Guest guest = new Guest() { Username = username, Password = password, Email = email };
+            Guest guest = new Guest(username, password, email);
+            if (!TryValidateModel(guest))
+            {
+                return BadRequest(ModelState);
+            }
             Context.Guests.Add(guest);
             Context.SaveChanges();
             return Ok(guest);
         }
+
+
         [HttpPut]
         public IActionResult Update(int id, string username, string password, string email)
         {

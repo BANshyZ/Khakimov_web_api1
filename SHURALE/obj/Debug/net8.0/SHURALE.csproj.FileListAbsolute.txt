@@ -134,3 +134,5 @@ C:\Users\Пользователь\source\repos\SHURALE\SHURALE\obj\Debug\net8.0\
 C:\Users\Пользователь\source\repos\SHURALE\SHURALE\obj\Debug\net8.0\SHURALE.pdb
 C:\Users\Пользователь\source\repos\SHURALE\SHURALE\obj\Debug\net8.0\SHURALE.genruntimeconfig.cache
 C:\Users\Пользователь\source\repos\SHURALE\SHURALE\obj\Debug\net8.0\ref\SHURALE.dll
+C:\Users\Пользователь\source\repos\SHURALE\SHURALE\obj\Debug\net8.0\SHURALE.sourcelink.json
+C:\Users\Пользователь\source\repos\SHURALE\SHURALE\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotations.dll
